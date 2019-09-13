@@ -306,6 +306,9 @@
             this.anhdaidien.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.anhdaidien.TabIndex = 0;
             this.anhdaidien.TabStop = false;
+            this.anhdaidien.Click += new System.EventHandler(this.Anhdaidien_Click);
+            this.anhdaidien.DragDrop += new System.Windows.Forms.DragEventHandler(this.Anhdaidien_DragDrop);
+            this.anhdaidien.DragEnter += new System.Windows.Forms.DragEventHandler(this.Anhdaidien_DragEnter);
             // 
             // frmThongTinSinhVien
             // 

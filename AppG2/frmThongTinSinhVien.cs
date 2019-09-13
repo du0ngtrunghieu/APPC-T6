@@ -22,11 +22,14 @@ namespace AppG2
             InitializeComponent();
             pathDirectoryImg = Application.StartupPath + "/Img";
             pathAvatarImg = pathDirectoryImg + "/avatar.png";
+            anhdaidien.AllowDrop = true;
             if (File.Exists(pathAvatarImg))
             {
 
-                 
-                anhdaidien.Image = Image.FromFile(pathAvatarImg);
+                FileStream fileStream = new FileStream(pathAvatarImg, FileMode.Open, FileAccess.Read);
+                anhdaidien.Image = Image.FromStream(fileStream);
+                fileStream.Close();
+
             }
         }
 
@@ -54,14 +57,29 @@ namespace AppG2
                 {
                     Directory.CreateDirectory(pathDirectoryImg);
                 }
-                anhdaidien.Image = null;
-                anhdaidien.Update();
-                if (File.Exists(pathAvatarImg))
-                {
-                    File.Delete(pathAvatarImg);
-                }
+                
                 image.Save(pathAvatarImg);
+                
+
             }
+            
+        }
+
+        private void Anhdaidien_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Anhdaidien_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void Anhdaidien_DragDrop(object sender, DragEventArgs e)
+        {
+            var rs=(string[])e.Data.GetData(DataFormats.FileDrop);
+            var filePath = rs.FirstOrDefault();
+            anhdaidien.Image = Image.FromFile(filePath);
         }
     }
 }
